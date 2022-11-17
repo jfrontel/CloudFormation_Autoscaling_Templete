@@ -33,9 +33,14 @@ CloudFormation se puede utilizar para implementar casi cualquier servicio de AWS
 <h3>Paso 1: Crear pila</h3>
 En la consola de AWS, vaya a CloudFormation y haga clic en Crear pila.
 
+![image](https://user-images.githubusercontent.com/114813145/202524100-ab712243-b181-4246-8178-fa996d30b7de.png)
+
+
 <h3>Paso 2: Crear plantilla</h3>
 Cogeremos una plantilla estandar de autoescalado en:
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/sample-templates-services-us-west-2.html
 y la versionaremos a nuestro gusto para lograr completar el caso práctico con éxito.
+
+Ver en archivos mytemplete_autoscaling
 
 
