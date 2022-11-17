@@ -43,4 +43,9 @@ y la versionaremos a nuestro gusto para lograr completar el caso práctico con �
 
 Ver en archivos mytemplete_autoscaling
 
+Este archivo que está compuesto por todo lo que necesitamos para implementar nuestra solución en AWS lo subiremos en:
+
+![image](https://user-images.githubusercontent.com/114813145/202524817-d907e63a-0f18-45e2-99d4-cc2ee2aaf496.png)
+
+Click en Nest y esperamos a que se vaya ejecutando e implentando todo el código
 
