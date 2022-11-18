@@ -3,10 +3,10 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: This template creates an autoscaling group with EC2 instances in a VPC with 2 public subnets. The instances have an Nginx web server installed.
 
 Parameters:
-  VpcId:
-    Type: 'AWS::EC2::VPC::Id'
-    Description: VpcId of your existing Virtual Private Cloud (VPC)
-    ConstraintDescription: must be the VPC Id of an existing Virtual Private Cloud.
+
+  LaunchTemplateVersionNumber:
+    Default: 1
+    Type: String    
 
 Resources:
   VPC:
@@ -105,7 +105,6 @@ Resources:
         Placement:
           Tenancy: default
         ImageId: ami-0b0dcb5067f052a63
-        KeyName: !Ref KeyName
         InstanceType: t2.micro
         UserData:
           Fn::Base64:
