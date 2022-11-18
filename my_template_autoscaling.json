@@ -2,10 +2,9 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "This template creates an autoscaling group with EC2 instances in a VPC with 2 public subnets. The instances have an Nginx web server installed.",
     "Parameters": {
-        "VpcId": {
-            "Type": "AWS::EC2::VPC::Id",
-            "Description": "VpcId of your existing Virtual Private Cloud (VPC)",
-            "ConstraintDescription": "must be the VPC Id of an existing Virtual Private Cloud."
+        "LaunchTemplateVersionNumber": {
+            "Default": 1,
+            "Type": "String"
         }
     },
     "Resources": {
@@ -16,11 +15,6 @@
                 "EnableDnsHostnames": true,
                 "EnableDnsSupport": true,
                 "InstanceTenancy": "default"
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "b7616fb2-b4c9-44b5-abc7-7be9c9b62fd8"
-                }
             }
         },
         "InternetGateway": {
@@ -32,11 +26,6 @@
                         "Value": "IGW"
                     }
                 ]
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "32abb26f-e54b-4d0f-8704-132291c23e4c"
-                }
             }
         },
         "InternetGatewayAttachment": {
@@ -47,11 +36,6 @@
                 },
                 "VpcId": {
                     "Ref": "VPC"
-                }
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "0784ffc6-a58c-46f4-901d-a186d85b32e5"
                 }
             }
         },
@@ -77,11 +61,6 @@
                 "VpcId": {
                     "Ref": "VPC"
                 }
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "31bac425-5b62-4a31-92a6-e19c20a3b375"
-                }
             }
         },
         "PublicSubnet2": {
@@ -106,11 +85,6 @@
                 "VpcId": {
                     "Ref": "VPC"
                 }
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "6c0ca497-8943-487a-96b8-56855dd232d6"
-                }
             }
         },
         "PublicRouteTable": {
@@ -125,11 +99,6 @@
                 "VpcId": {
                     "Ref": "VPC"
                 }
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "cc4e8b09-4d36-4de4-a846-623206d9cad2"
-                }
             }
         },
         "PublicRoute": {
@@ -142,11 +111,6 @@
                 },
                 "RouteTableId": {
                     "Ref": "PublicRouteTable"
-                }
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "c1ce3583-a9a9-4994-8161-dc048cf47a9c"
                 }
             }
         },
@@ -187,11 +151,6 @@
                         "CidrIp": "0.0.0.0/0"
                     }
                 ]
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "cacb4662-58aa-4ebb-b9f5-284cc80c57da"
-                }
             }
         },
         "LaunchTemplate": {
@@ -217,20 +176,12 @@
                         "Tenancy": "default"
                     },
                     "ImageId": "ami-0b0dcb5067f052a63",
-                    "KeyName": {
-                        "Ref": "KeyName"
-                    },
                     "InstanceType": "t2.micro",
                     "UserData": {
                         "Fn::Base64": {
                             "Fn::Sub": "#!/bin/bash\nyum update -y\nyum install nginx -y\nsystemctl start nginx\nsystemctl enable nginx\n"
                         }
                     }
-                }
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "02537999-d549-450d-828d-a36e2418fd5e"
                 }
             }
         },
@@ -255,156 +206,6 @@
                     {
                         "Ref": "PublicSubnet2"
                     }
-                ]
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "8f51ff29-6190-4877-a631-e90ae3829385"
-                }
-            }
-        }
-    },
-    "Metadata": {
-        "AWS::CloudFormation::Designer": {
-            "32abb26f-e54b-4d0f-8704-132291c23e4c": {
-                "size": {
-                    "width": 60,
-                    "height": 60
-                },
-                "position": {
-                    "x": 180,
-                    "y": 30
-                },
-                "z": 1,
-                "embeds": []
-            },
-            "b7616fb2-b4c9-44b5-abc7-7be9c9b62fd8": {
-                "size": {
-                    "width": 420,
-                    "height": 120
-                },
-                "position": {
-                    "x": 270,
-                    "y": 210
-                },
-                "z": 1,
-                "embeds": [
-                    "cacb4662-58aa-4ebb-b9f5-284cc80c57da"
-                ]
-            },
-            "cacb4662-58aa-4ebb-b9f5-284cc80c57da": {
-                "size": {
-                    "width": 60,
-                    "height": 60
-                },
-                "position": {
-                    "x": 600,
-                    "y": 240
-                },
-                "z": 2,
-                "parent": "b7616fb2-b4c9-44b5-abc7-7be9c9b62fd8",
-                "embeds": [],
-                "iscontainedinside": [
-                    "b7616fb2-b4c9-44b5-abc7-7be9c9b62fd8",
-                    "b7616fb2-b4c9-44b5-abc7-7be9c9b62fd8"
-                ]
-            },
-            "02537999-d549-450d-828d-a36e2418fd5e": {
-                "size": {
-                    "width": 60,
-                    "height": 60
-                },
-                "position": {
-                    "x": 450,
-                    "y": 120
-                },
-                "z": 1,
-                "embeds": []
-            },
-            "cc4e8b09-4d36-4de4-a846-623206d9cad2": {
-                "size": {
-                    "width": 150,
-                    "height": 120
-                },
-                "position": {
-                    "x": 180,
-                    "y": 60
-                },
-                "z": 1,
-                "embeds": [
-                    "c1ce3583-a9a9-4994-8161-dc048cf47a9c"
-                ]
-            },
-            "6c0ca497-8943-487a-96b8-56855dd232d6": {
-                "size": {
-                    "width": 120,
-                    "height": 90
-                },
-                "position": {
-                    "x": 240,
-                    "y": 90
-                },
-                "z": 1,
-                "embeds": []
-            },
-            "31bac425-5b62-4a31-92a6-e19c20a3b375": {
-                "size": {
-                    "width": 120,
-                    "height": 90
-                },
-                "position": {
-                    "x": 30,
-                    "y": 90
-                },
-                "z": 1,
-                "embeds": []
-            },
-            "8f51ff29-6190-4877-a631-e90ae3829385": {
-                "size": {
-                    "width": 60,
-                    "height": 60
-                },
-                "position": {
-                    "x": 180,
-                    "y": 210
-                },
-                "z": 1,
-                "embeds": [],
-                "iscontainedinside": [
-                    "31bac425-5b62-4a31-92a6-e19c20a3b375",
-                    "6c0ca497-8943-487a-96b8-56855dd232d6"
-                ]
-            },
-            "0784ffc6-a58c-46f4-901d-a186d85b32e5": {
-                "source": {
-                    "id": "b7616fb2-b4c9-44b5-abc7-7be9c9b62fd8"
-                },
-                "target": {
-                    "id": "32abb26f-e54b-4d0f-8704-132291c23e4c"
-                },
-                "z": 1
-            },
-            "c1ce3583-a9a9-4994-8161-dc048cf47a9c": {
-                "size": {
-                    "width": 60,
-                    "height": 60
-                },
-                "position": {
-                    "x": 210,
-                    "y": 90
-                },
-                "z": 2,
-                "parent": "cc4e8b09-4d36-4de4-a846-623206d9cad2",
-                "embeds": [],
-                "isassociatedwith": [
-                    "32abb26f-e54b-4d0f-8704-132291c23e4c"
-                ],
-                "iscontainedinside": [
-                    "cc4e8b09-4d36-4de4-a846-623206d9cad2",
-                    "cc4e8b09-4d36-4de4-a846-623206d9cad2"
-                ],
-                "dependson": [
-                    "0784ffc6-a58c-46f4-901d-a186d85b32e5"
                 ]
             }
         }
